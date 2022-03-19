@@ -4,9 +4,9 @@ My environment is python==3.8.5  torchvision==0.8.1  pytorch==1.7.0
 
 ```python
 #train
-python train.py  --dataset="/" --mode="train"
+python train.py  --mode="train"
 #test
-python train.py  --dataset="/" --mode="test"
+python train.py  --mode="test"
 ```
 
 # Dataset

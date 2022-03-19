@@ -147,7 +147,7 @@ def main(args):
 
 #   setting file
     setting_str = f"setup config:\n\tdataset:{args.dataset}\n\t"\
-        f"net :{args.model_name} \n\tniter:{niter} \n\tis_scheduler:{args.is_schedular} \n\t"\
+        f"net :{args.model_name} \n\tniter:{niter} \n\tis_scheduler:{args.is_scheduler} \n\t"\
         f"batch size:{args.batch_size}\n\tlearning rate:{args.learning_rate}\n\tis_logger:{args.is_logger}\n\t"\
         f"alhpa:{alpha}\n\tmodel_checkpoint:{args.model_checkpoints}\n\t"\
         f"auto_train:{args.auto_train}\n\toutput root:{output_root}\n\tm:{m}\n\t"
@@ -167,7 +167,7 @@ def main(args):
     elif args.auto_train and args.pretrained_model == "":
         weights_file = get_latest_file_name(output_root+"/model")
         if weights_file is not None:
-            checkpoint = torch.load(weights_file)
+            checkpoint = torch.load(weights_file, map_location='cuda:0')
             model.load_state_dict(checkpoint['net'])
             optimizer.load_state_dict(checkpoint['optimizer'])
     # 		swtich optimizer coefficient to cuda type
@@ -257,7 +257,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--batch_size",
-        default=2,
+        default=32,
         help="Model definition file."
     )
 
@@ -295,7 +295,7 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--is_schedular",
+        "--is_scheduler",
         default=True,
         type=bool,
         help="Dynamic learning."
